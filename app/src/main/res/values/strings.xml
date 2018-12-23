@@ -28,4 +28,5 @@
     <string name="times">Due time:</string>
     <string name="dates">Due Date:</string>
     <string name="remind_me_on">Remind me on</string>
+    <string name="edit">Edit</string>
 </resources>
