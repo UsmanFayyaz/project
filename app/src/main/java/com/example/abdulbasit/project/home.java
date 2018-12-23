@@ -4,15 +4,17 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class home extends AppCompatActivity {
 
-    structure st;
     ArrayList<structure> arr = new ArrayList<structure>();
     ArrayAdapter myAdapter;
     ListView myListView;
@@ -42,14 +44,36 @@ public class home extends AppCompatActivity {
                 String returntime = data.getStringExtra("time");
 
                 structure sts;
-                sts=new structure(returninp,returndate,returntime);
+                sts = new structure(returninp, returndate, returntime);
 
                 arr.add(sts);
 
                 myAdapter = new custom_list(this, arr);
                 myListView = (ListView) findViewById(R.id.myList);
                 myListView.setAdapter(myAdapter);
+
+                myListView.setOnItemClickListener(
+                        new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                viewSlot(position);
+                            }
+                        }
+                );
             }
         }
     }
+
+    public void viewSlot(int a) {
+        structure st = arr.get(a);
+
+        Intent i = new Intent(this,SpecifcSlot.class);
+
+        i.putExtra("title",st.description);
+        i.putExtra("date",st.date);
+        i.putExtra("time",st.time);
+
+        startActivity(i);
+    }
+
 }

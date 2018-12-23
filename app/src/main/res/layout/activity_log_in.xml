@@ -77,5 +77,6 @@
         android:onClick="logIn"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="OnClick" />
 </android.support.constraint.ConstraintLayout>

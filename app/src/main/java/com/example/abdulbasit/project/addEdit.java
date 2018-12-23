@@ -44,8 +44,10 @@ public class addEdit extends AppCompatActivity {
         int hour = d.get(Calendar.HOUR_OF_DAY);
         int minute = d.get(Calendar.MINUTE);
 
-        mDisplayDate.setText(month + "/" + day + "/" + year);
-        mDisplayTime.setText(hour + ":" + minute + ":00");
+        String temp = day + "/" + month + "/" + year;
+        mDisplayDate.setText(temp);
+        temp = hour + ":" + minute + ":00";
+        mDisplayTime.setText(temp);
 
 
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +73,7 @@ public class addEdit extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
 
-                String date = month + "/" + day + "/" + year;
+                String date = day + "/" + month + "/" + year;
                 mDisplayDate.setText(date);
             }
         };

@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".home" />
-        <activity android:name=".addEdit"></activity>
+        <activity android:name=".addEdit" />
+        <activity android:name=".SpecifcSlot"></activity>
     </application>
 
 </manifest>
