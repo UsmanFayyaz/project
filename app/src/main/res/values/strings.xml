@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">project</string>
+    <string name="user_name">User Name</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="user_nameS">User name</string>
+    <string name="passwordS">Password</string>
+    <string name="nameS">Name</string>
+    <string name="sign_up_Button">Sign up</string>
+    <string name="sign_up_s">Sign Up</string>
+    <string name="data">TextView</string>
+    <string name="date">14-12-2018</string>
+    <string name="addButton">Button</string>
+    <string name="add">Save</string>
+    <string name="time">TextView</string>
+    <string name="timetext">TextView</string>
+    <string name="dateText">TextView</string>
+    <string name="title">Title</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+</resources>
