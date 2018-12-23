@@ -22,7 +22,6 @@ public class SpecifcSlot extends AppCompatActivity {
         TextView time=(TextView)findViewById(R.id.timeText);
 
 
-
         title.setText(data.getString("title"));
         date.setText(data.getString("date"));
         time.setText(data.getString("time"));
