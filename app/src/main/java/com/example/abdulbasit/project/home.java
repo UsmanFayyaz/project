@@ -22,13 +22,6 @@ public class home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        st = new structure("usman", "31.12.2018", "08:40:00");
-        arr.add(st);
-
-        myAdapter = new custom_list(this, arr);
-        myListView = (ListView) findViewById(R.id.myList);
-        myListView.setAdapter(myAdapter);
     }
 
     public void add(View view) {

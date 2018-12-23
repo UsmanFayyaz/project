@@ -13,7 +13,7 @@
     <string name="sign_up_s">Sign Up</string>
     <string name="data">TextView</string>
     <string name="date">14-12-2018</string>
-    <string name="addButton">Button</string>
+    <string name="addButton">+</string>
     <string name="add">Save</string>
     <string name="time">TextView</string>
     <string name="timetext">TextView</string>

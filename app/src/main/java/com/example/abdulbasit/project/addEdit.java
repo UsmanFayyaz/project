@@ -36,6 +36,18 @@ public class addEdit extends AppCompatActivity {
         mDisplayDate = (TextView) findViewById(R.id.dateText);
         mDisplayTime = (TextView) findViewById(R.id.timeText);
 
+        Calendar d = Calendar.getInstance();
+        int year = d.get(Calendar.YEAR);
+        int month = d.get(Calendar.MONTH);
+        int day = d.get(Calendar.DAY_OF_MONTH);
+
+        int hour = d.get(Calendar.HOUR_OF_DAY);
+        int minute = d.get(Calendar.MINUTE);
+
+        mDisplayDate.setText(month + "/" + day + "/" + year);
+        mDisplayTime.setText(hour + ":" + minute + ":00");
+
+
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
