@@ -28,6 +28,7 @@ public class home extends AppCompatActivity {
 
     public void add(View view) {
         Intent i = new Intent(this, addEdit.class);
+        i.putExtra("data", arr);
         startActivityForResult(i, second_activity_request_code);
     }
 
@@ -38,15 +39,7 @@ public class home extends AppCompatActivity {
         if (requestCode == second_activity_request_code) {
             if (resultCode == RESULT_OK) {
 
-                // Get String data from Intent
-                String returninp = data.getStringExtra("input");
-                String returndate = data.getStringExtra("date");
-                String returntime = data.getStringExtra("time");
-
-                structure sts;
-                sts = new structure(returninp, returndate, returntime);
-
-                arr.add(sts);
+                arr = data.getParcelableArrayListExtra("data");
 
                 myAdapter = new custom_list(this, arr);
                 myListView = (ListView) findViewById(R.id.myList);
@@ -67,11 +60,11 @@ public class home extends AppCompatActivity {
     public void viewSlot(int a) {
         structure st = arr.get(a);
 
-        Intent i = new Intent(this,SpecifcSlot.class);
+        Intent i = new Intent(this, SpecifcSlot.class);
 
-        i.putExtra("title",st.description);
-        i.putExtra("date",st.date);
-        i.putExtra("time",st.time);
+        i.putExtra("title", st.description);
+        i.putExtra("date", st.date);
+        i.putExtra("time", st.time);
 
         startActivity(i);
     }

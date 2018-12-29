@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class addEdit extends AppCompatActivity {
@@ -23,6 +24,9 @@ public class addEdit extends AppCompatActivity {
     Button timeButton;
     TextView mDisplayDate;
     TextView mDisplayTime;
+    structure sts;
+    ArrayList<structure> arr;
+    EditText input;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     TimePickerDialog.OnTimeSetListener mTimeSetListner;
 
@@ -31,10 +35,14 @@ public class addEdit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit);
 
+        Intent i = getIntent();
+        arr = i.getParcelableArrayListExtra("data");
+
         dateButton = (Button) findViewById(R.id.dateButton);
         timeButton = (Button) findViewById(R.id.timeButton);
         mDisplayDate = (TextView) findViewById(R.id.dateText);
         mDisplayTime = (TextView) findViewById(R.id.timeText);
+        input = (EditText) findViewById(R.id.input);
 
         Calendar d = Calendar.getInstance();
         int year = d.get(Calendar.YEAR);
@@ -103,25 +111,15 @@ public class addEdit extends AppCompatActivity {
                 mDisplayTime.setText(time);
             }
         };
-
     }
 
     public void add(View view) {
-        EditText input = (EditText) findViewById(R.id.input);
-        String inp = input.getText().toString();
+        sts = new structure(input.getText().toString(), mDisplayDate.getText().toString(), mDisplayTime.getText().toString());
+        arr.add(sts);
 
-
-        TextView date = (TextView) findViewById(R.id.dateText);
-        String dat = date.getText().toString();
-
-        TextView time = (TextView) findViewById(R.id.timeText);
-        String tim = time.getText().toString();
-
-        Intent intent = new Intent();
-        intent.putExtra("input", inp);
-        intent.putExtra("date", dat);
-        intent.putExtra("time", tim);
-        setResult(RESULT_OK, intent);
+        Intent i= new Intent();
+        i.putExtra("data",arr);
+        setResult(RESULT_OK, i);
         finish();
     }
 }
