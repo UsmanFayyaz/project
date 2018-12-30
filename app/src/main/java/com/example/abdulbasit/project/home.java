@@ -41,7 +41,6 @@ public class home extends AppCompatActivity {
         i.putExtra("data", arr);
         i.putExtra("position", a);
         i.putExtra("specific", false);
-        //startActivity(i);
         startActivityForResult(i, specific_activity_request_code);
     }
 
