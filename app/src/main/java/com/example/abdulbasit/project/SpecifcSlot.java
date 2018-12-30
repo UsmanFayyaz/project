@@ -1,29 +1,61 @@
 package com.example.abdulbasit.project;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class SpecifcSlot extends AppCompatActivity {
+
+    ArrayList<structure> arr;
+    int position;
+    private static final int second_activity_request_code = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specifc_slot);
 
-        Bundle data = getIntent().getExtras();
 
-        if(data == null){
-            return;
-        }
+        Intent i = getIntent();
+        arr = i.getParcelableArrayListExtra("data");
+        position = i.getIntExtra("position", 1);
 
-        TextView title=(TextView)findViewById(R.id.Title);
-        TextView date=(TextView)findViewById(R.id.dateText);
-        TextView time=(TextView)findViewById(R.id.timeText);
+        structure sts = arr.get(position);
+
+        TextView title = (TextView) findViewById(R.id.Title);
+        TextView date = (TextView) findViewById(R.id.dateText);
+        TextView time = (TextView) findViewById(R.id.timeText);
 
 
-        title.setText(data.getString("title"));
-        date.setText(data.getString("date"));
-        time.setText(data.getString("time"));
+        title.setText(sts.description);
+        date.setText(sts.date);
+        time.setText(sts.time);
     }
+
+    public void edit(View view) {
+        Intent i = new Intent(this, addEdit.class);
+        i.putExtra("data", arr);
+        i.putExtra("position", position);
+        i.putExtra("specific", true);
+        startActivityForResult(i, second_activity_request_code);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == second_activity_request_code) {
+            if (resultCode == RESULT_OK) {
+                arr = data.getParcelableArrayListExtra("data");
+            }
+        }
+    }
+
 }

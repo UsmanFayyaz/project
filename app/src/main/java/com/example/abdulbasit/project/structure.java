@@ -32,30 +32,6 @@ public class structure implements Parcelable {
         }
     };
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @Override
     public int describeContents() {
         return 0;

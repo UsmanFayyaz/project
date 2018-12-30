@@ -14,7 +14,7 @@ public class log_in extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_log_in, container, false);
+        View view = inflater.inflate(R.layout.log_in, container, false);
         return view;
     }
 }

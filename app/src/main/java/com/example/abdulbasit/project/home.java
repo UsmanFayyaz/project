@@ -29,6 +29,8 @@ public class home extends AppCompatActivity {
     public void add(View view) {
         Intent i = new Intent(this, addEdit.class);
         i.putExtra("data", arr);
+        i.putExtra("position", 0);
+        i.putExtra("specific", false);
         startActivityForResult(i, second_activity_request_code);
     }
 
@@ -58,15 +60,12 @@ public class home extends AppCompatActivity {
     }
 
     public void viewSlot(int a) {
-        structure st = arr.get(a);
-
         Intent i = new Intent(this, SpecifcSlot.class);
 
-        i.putExtra("title", st.description);
-        i.putExtra("date", st.date);
-        i.putExtra("time", st.time);
+        i.putExtra("data", arr);
+        i.putExtra("position", a);
 
-        startActivity(i);
+        startActivityForResult(i,second_activity_request_code);
     }
 
 }

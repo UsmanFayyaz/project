@@ -26,6 +26,8 @@ public class addEdit extends AppCompatActivity {
     TextView mDisplayTime;
     structure sts;
     ArrayList<structure> arr;
+    int position;
+    boolean edit_add;
     EditText input;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     TimePickerDialog.OnTimeSetListener mTimeSetListner;
@@ -37,25 +39,33 @@ public class addEdit extends AppCompatActivity {
 
         Intent i = getIntent();
         arr = i.getParcelableArrayListExtra("data");
-
+        position = i.getIntExtra("position", 1);
+        edit_add = i.getBooleanExtra("specific", false);
         dateButton = (Button) findViewById(R.id.dateButton);
         timeButton = (Button) findViewById(R.id.timeButton);
         mDisplayDate = (TextView) findViewById(R.id.dateText);
         mDisplayTime = (TextView) findViewById(R.id.timeText);
         input = (EditText) findViewById(R.id.input);
 
-        Calendar d = Calendar.getInstance();
-        int year = d.get(Calendar.YEAR);
-        int month = d.get(Calendar.MONTH);
-        int day = d.get(Calendar.DAY_OF_MONTH);
+        if (!edit_add) {
+            Calendar d = Calendar.getInstance();
+            int year = d.get(Calendar.YEAR);
+            int month = d.get(Calendar.MONTH);
+            int day = d.get(Calendar.DAY_OF_MONTH);
 
-        int hour = d.get(Calendar.HOUR_OF_DAY);
-        int minute = d.get(Calendar.MINUTE);
+            int hour = d.get(Calendar.HOUR_OF_DAY);
+            int minute = d.get(Calendar.MINUTE);
 
-        String temp = day + "/" + month + "/" + year;
-        mDisplayDate.setText(temp);
-        temp = hour + ":" + minute + ":00";
-        mDisplayTime.setText(temp);
+            String temp = day + "/" + month + "/" + year;
+            mDisplayDate.setText(temp);
+            temp = hour + ":" + minute + ":00";
+            mDisplayTime.setText(temp);
+        } else {
+            sts = arr.get(position);
+            input.setText(sts.description);
+            mDisplayDate.setText(sts.date);
+            mDisplayTime.setText(sts.time);
+        }
 
 
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -113,12 +123,15 @@ public class addEdit extends AppCompatActivity {
         };
     }
 
-    public void add(View view) {
+    public void save(View view) {
         sts = new structure(input.getText().toString(), mDisplayDate.getText().toString(), mDisplayTime.getText().toString());
-        arr.add(sts);
-
-        Intent i= new Intent();
-        i.putExtra("data",arr);
+        if (!edit_add) {
+            arr.add(sts);
+        } else {
+            arr.add(position, sts);
+        }
+        Intent i = new Intent();
+        i.putExtra("data", arr);
         setResult(RESULT_OK, i);
         finish();
     }
