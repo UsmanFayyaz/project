@@ -19,6 +19,7 @@ public class home extends AppCompatActivity {
     ArrayAdapter myAdapter;
     ListView myListView;
     private static final int second_activity_request_code = 0;
+    private static final int specific_activity_request_code = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,16 @@ public class home extends AppCompatActivity {
         i.putExtra("position", 0);
         i.putExtra("specific", false);
         startActivityForResult(i, second_activity_request_code);
+    }
+
+    public void viewSlot(int a) {
+        Intent i = new Intent(this, SpecifcSlot.class);
+
+        i.putExtra("data", arr);
+        i.putExtra("position", a);
+        i.putExtra("specific", false);
+        //startActivity(i);
+        startActivityForResult(i, specific_activity_request_code);
     }
 
     @Override
@@ -57,15 +68,6 @@ public class home extends AppCompatActivity {
                 );
             }
         }
-    }
-
-    public void viewSlot(int a) {
-        Intent i = new Intent(this, SpecifcSlot.class);
-
-        i.putExtra("data", arr);
-        i.putExtra("position", a);
-
-        startActivityForResult(i,second_activity_request_code);
     }
 
 }

@@ -15,6 +15,11 @@ public class SpecifcSlot extends AppCompatActivity {
 
     ArrayList<structure> arr;
     int position;
+    structure sts;
+
+    TextView title;
+    TextView date;
+    TextView time;
     private static final int second_activity_request_code = 0;
 
     @Override
@@ -22,17 +27,15 @@ public class SpecifcSlot extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specifc_slot);
 
+        title = (TextView) findViewById(R.id.Title);
+        date = (TextView) findViewById(R.id.dateText);
+        time = (TextView) findViewById(R.id.timeText);
 
         Intent i = getIntent();
         arr = i.getParcelableArrayListExtra("data");
         position = i.getIntExtra("position", 1);
 
-        structure sts = arr.get(position);
-
-        TextView title = (TextView) findViewById(R.id.Title);
-        TextView date = (TextView) findViewById(R.id.dateText);
-        TextView time = (TextView) findViewById(R.id.timeText);
-
+        sts = arr.get(position);
 
         title.setText(sts.description);
         date.setText(sts.date);
@@ -54,8 +57,12 @@ public class SpecifcSlot extends AppCompatActivity {
         if (requestCode == second_activity_request_code) {
             if (resultCode == RESULT_OK) {
                 arr = data.getParcelableArrayListExtra("data");
+
+                Intent i = new Intent();
+                i.putExtra("data", arr);
+                setResult(RESULT_OK, i);
+                finish();
             }
         }
     }
-
 }

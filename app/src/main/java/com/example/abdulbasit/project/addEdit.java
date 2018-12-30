@@ -128,6 +128,7 @@ public class addEdit extends AppCompatActivity {
         if (!edit_add) {
             arr.add(sts);
         } else {
+            arr.remove(position);
             arr.add(position, sts);
         }
         Intent i = new Intent();
