@@ -1,13 +1,15 @@
 package com.example.abdulbasit.project;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,8 +17,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class addEdit extends AppCompatActivity {
 
@@ -29,6 +34,8 @@ public class addEdit extends AppCompatActivity {
     int position;
     boolean edit_add;
     EditText input;
+    String date;
+    String time;
     DatePickerDialog.OnDateSetListener mDateSetListener;
     TimePickerDialog.OnTimeSetListener mTimeSetListner;
 
@@ -55,16 +62,18 @@ public class addEdit extends AppCompatActivity {
 
             int hour = d.get(Calendar.HOUR_OF_DAY);
             int minute = d.get(Calendar.MINUTE);
-
-            String temp = day + "/" + month + "/" + year;
-            mDisplayDate.setText(temp);
-            temp = hour + ":" + minute + ":00";
-            mDisplayTime.setText(temp);
+            month++;
+            date = day + "/" + month + "/" + year;
+            mDisplayDate.setText(date);
+            time = hour + ":" + minute + ":00";
+            mDisplayTime.setText(time);
         } else {
             sts = arr.get(position);
             input.setText(sts.description);
-            mDisplayDate.setText(sts.date);
-            mDisplayTime.setText(sts.time);
+            date = sts.date;
+            time = sts.time;
+            mDisplayDate.setText(date);
+            mDisplayTime.setText(time);
         }
 
 
@@ -91,7 +100,7 @@ public class addEdit extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
 
-                String date = day + "/" + month + "/" + year;
+                date = day + "/" + month + "/" + year;
                 mDisplayDate.setText(date);
             }
         };
@@ -117,13 +126,38 @@ public class addEdit extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
 
-                String time = hour + ":" + minute + ":00";
+                time = hour + ":" + minute + ":00";
                 mDisplayTime.setText(time);
             }
         };
     }
 
     public void save(View view) {
+
+
+        String dateInString = date + " " + time;
+        Date inputDate = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy hh:mm");
+
+        try {
+            inputDate = sdf.parse(dateInString);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Long userInputTime = inputDate.getTime();
+
+        Intent intent = new Intent(addEdit.this, alarm.class);
+        PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+        AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarm.set(AlarmManager.RTC_WAKEUP, userInputTime, pending);
+
+        Log.d("usman", userInputTime + "");
+        Calendar calendar = Calendar.getInstance();
+
+        Log.d("usman", calendar.getTimeInMillis() + "");
+
         sts = new structure(input.getText().toString(), mDisplayDate.getText().toString(), mDisplayTime.getText().toString());
         if (!edit_add) {
             arr.add(sts);

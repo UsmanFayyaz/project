@@ -19,6 +19,8 @@
         <activity android:name=".home" />
         <activity android:name=".addEdit" />
         <activity android:name=".SpecifcSlot"></activity>
+
+        <receiver android:name=".alarm"></receiver>
     </application>
 
 </manifest>
