@@ -152,12 +152,12 @@ public class addEdit extends AppCompatActivity {
         PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarm.set(AlarmManager.RTC_WAKEUP, userInputTime, pending);
-
+///////////////////////////////////////////////////////////////////////////////
         Log.d("usman", userInputTime + "");
         Calendar calendar = Calendar.getInstance();
 
         Log.d("usman", calendar.getTimeInMillis() + "");
-
+///////////////////////////////////////////////////////////////////////////////
         sts = new structure(input.getText().toString(), mDisplayDate.getText().toString(), mDisplayTime.getText().toString());
         if (!edit_add) {
             arr.add(sts);
