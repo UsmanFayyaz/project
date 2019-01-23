@@ -1,6 +1,7 @@
 package com.example.abdulbasit.project;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,16 +16,21 @@ import java.util.ArrayList;
 
 public class home extends AppCompatActivity {
 
+    sqlite myDataBase;
     ArrayList<structure> arr = new ArrayList<structure>();
     ArrayAdapter myAdapter;
     ListView myListView;
-    private static final int second_activity_request_code = 0;
-    private static final int specific_activity_request_code = 0;
+    private static final int addEdit_activity_request_code = 0;
+    private static final int specific_activity_request_code = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        myDataBase = new sqlite(this);
+
+        populateArrayAdapter();
     }
 
     public void add(View view) {
@@ -32,14 +38,14 @@ public class home extends AppCompatActivity {
         i.putExtra("data", arr);
         i.putExtra("position", 0);
         i.putExtra("specific", false);
-        startActivityForResult(i, second_activity_request_code);
+        startActivityForResult(i, addEdit_activity_request_code);
     }
 
-    public void viewSlot(int a) {
+    public void viewSlot(int pos) {
         Intent i = new Intent(this, SpecifcSlot.class);
 
         i.putExtra("data", arr);
-        i.putExtra("position", a);
+        i.putExtra("position", pos);
         i.putExtra("specific", false);
         startActivityForResult(i, specific_activity_request_code);
     }
@@ -48,7 +54,7 @@ public class home extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == second_activity_request_code) {
+        if (requestCode == addEdit_activity_request_code) {
             if (resultCode == RESULT_OK) {
 
                 arr = data.getParcelableArrayListExtra("data");
@@ -56,6 +62,37 @@ public class home extends AppCompatActivity {
                 myAdapter = new custom_list(this, arr);
                 myListView = (ListView) findViewById(R.id.myList);
                 myListView.setAdapter(myAdapter);
+
+
+                structure sts = arr.get(arr.size() - 1);
+                myDataBase.insertData(sts.title, sts.date, sts.time);
+
+                myListView.setOnItemClickListener(
+                        new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                viewSlot(position);
+                            }
+                        }
+                );
+            }
+        }
+
+        if (requestCode == specific_activity_request_code) {
+            if (resultCode == RESULT_OK) {
+
+                arr = data.getParcelableArrayListExtra("data");
+                int pos = data.getIntExtra("position", 0);
+
+                Log.d("usman", pos + "");
+
+                myAdapter = new custom_list(this, arr);
+                myListView = (ListView) findViewById(R.id.myList);
+                myListView.setAdapter(myAdapter);
+
+
+                structure sts = arr.get(pos);
+                myDataBase.updateData(pos + 1 + "", sts.title, sts.date, sts.time);
 
                 myListView.setOnItemClickListener(
                         new AdapterView.OnItemClickListener() {
@@ -69,4 +106,33 @@ public class home extends AppCompatActivity {
         }
     }
 
+    public void populateArrayAdapter() {
+        Cursor res = myDataBase.getAllData();
+        structure sts;
+
+        if (res.getCount() == 0)
+            return;
+
+        while (res.moveToNext()) {
+            sts = new structure();
+            sts.title = res.getString(1);
+            sts.date = res.getString(2);
+            sts.time = res.getString(3);
+
+            arr.add(sts);
+        }
+
+        myAdapter = new custom_list(this, arr);
+        myListView = (ListView) findViewById(R.id.myList);
+        myListView.setAdapter(myAdapter);
+
+        myListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        viewSlot(position);
+                    }
+                }
+        );
+    }
 }

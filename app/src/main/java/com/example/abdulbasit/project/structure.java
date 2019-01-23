@@ -4,21 +4,24 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class structure implements Parcelable {
-    String description;
+    String title;
     String date;
     String time;
 
     public structure(String d, String da, String ti) {
-        description = d;
+        title = d;
         date = da;
         time = ti;
     }
 
     protected structure(Parcel in) {
-        description = in.readString();
+        title = in.readString();
         date = in.readString();
         time = in.readString();
     }
+
+    public structure(){}
+
 
     public static final Creator<structure> CREATOR = new Creator<structure>() {
         @Override
@@ -39,7 +42,7 @@ public class structure implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(description);
+        dest.writeString(title);
         dest.writeString(date);
         dest.writeString(time);
     }

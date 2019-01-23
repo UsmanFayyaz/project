@@ -69,7 +69,7 @@ public class addEdit extends AppCompatActivity {
             mDisplayTime.setText(time);
         } else {
             sts = arr.get(position);
-            input.setText(sts.description);
+            input.setText(sts.title);
             date = sts.date;
             time = sts.time;
             mDisplayDate.setText(date);

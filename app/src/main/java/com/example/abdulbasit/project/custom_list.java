@@ -27,7 +27,7 @@ public class custom_list extends ArrayAdapter<structure> {
         TextView date = (TextView) customView.findViewById(R.id.date);
         TextView time = (TextView) customView.findViewById(R.id.time);
 
-        desc.setText(st.description);
+        desc.setText(st.title);
         date.setText(st.date);
         time.setText(st.time);
 

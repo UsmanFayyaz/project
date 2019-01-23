@@ -37,7 +37,7 @@ public class SpecifcSlot extends AppCompatActivity {
 
         sts = arr.get(position);
 
-        title.setText(sts.description);
+        title.setText(sts.title);
         date.setText(sts.date);
         time.setText(sts.time);
     }
@@ -60,6 +60,7 @@ public class SpecifcSlot extends AppCompatActivity {
 
                 Intent i = new Intent();
                 i.putExtra("data", arr);
+                i.putExtra("position", position);
                 setResult(RESULT_OK, i);
                 finish();
             }
