@@ -66,7 +66,11 @@ public class sqlite extends SQLiteOpenHelper {
 
     public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor result = db.rawQuery("select * from " + tableName, null);
-        return result;
+        return db.rawQuery("select * from " + tableName, null);
+    }
+
+    public Integer deleteData(String title) {                                                          //Integar is a class not a datatype
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(tableName, "title = ?", new String[]{title});
     }
 }

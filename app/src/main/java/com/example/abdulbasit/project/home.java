@@ -84,12 +84,12 @@ public class home extends AppCompatActivity {
                 arr = data.getParcelableArrayListExtra("data");
                 int pos = data.getIntExtra("position", 0);
 
-                Log.d("usman", pos + "");
-
                 myAdapter = new custom_list(this, arr);
                 myListView = (ListView) findViewById(R.id.myList);
                 myListView.setAdapter(myAdapter);
 
+                if(pos == -1)
+                    return;
 
                 structure sts = arr.get(pos);
                 myDataBase.updateData(pos + 1 + "", sts.title, sts.date, sts.time);

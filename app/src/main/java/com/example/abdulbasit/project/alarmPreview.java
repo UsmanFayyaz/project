@@ -1,9 +1,12 @@
 package com.example.abdulbasit.project;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -26,14 +29,22 @@ public class alarmPreview extends AppCompatActivity {
 
         Toast.makeText(this, "Wake up", Toast.LENGTH_LONG).show();
 
-        mPlayer = MediaPlayer.create(this, R.raw.aa);
+        startService(new Intent(this,service.class));
+    }
 
-        mPlayer.start();
+    public void stop(View view){
+        stopService(new Intent(this,service.class));
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this,service.class));
     }
 
     @Override
     protected void onStop() {
-        mPlayer.stop();
         super.onStop();
     }
 }

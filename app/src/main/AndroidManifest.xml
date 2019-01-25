@@ -23,6 +23,7 @@
         <receiver android:name=".alarm" />
 
         <activity android:name=".alarmPreview"></activity>
+        <service android:name=".service"/>
     </application>
 
 </manifest>
