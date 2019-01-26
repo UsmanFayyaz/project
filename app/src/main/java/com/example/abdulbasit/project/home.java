@@ -36,7 +36,7 @@ public class home extends AppCompatActivity {
     public void add(View view) {
         Intent i = new Intent(this, addEdit.class);
         i.putExtra("data", arr);
-        i.putExtra("position", 0);
+        i.putExtra("position", arr.size());
         i.putExtra("specific", false);
         startActivityForResult(i, addEdit_activity_request_code);
     }
@@ -65,8 +65,7 @@ public class home extends AppCompatActivity {
 
 
                 structure sts = arr.get(arr.size() - 1);
-                myDataBase.insertData(sts.title, sts.date, sts.time);
-
+                myDataBase.insertData(sts.title, sts.date, sts.time,arr.size()-1);
                 myListView.setOnItemClickListener(
                         new AdapterView.OnItemClickListener() {
                             @Override
@@ -92,7 +91,8 @@ public class home extends AppCompatActivity {
                     return;
 
                 structure sts = arr.get(pos);
-                myDataBase.updateData(pos + 1 + "", sts.title, sts.date, sts.time);
+                if(myDataBase.updateData(sts.title, sts.date, sts.time,pos))
+                    Toast.makeText(this,"succefully updated",Toast.LENGTH_LONG).show();
 
                 myListView.setOnItemClickListener(
                         new AdapterView.OnItemClickListener() {

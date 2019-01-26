@@ -45,6 +45,7 @@ public class addEdit extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit);
 
         Intent i = getIntent();
+        arr = new ArrayList<structure>();
         arr = i.getParcelableArrayListExtra("data");
         position = i.getIntExtra("position", 1);
         edit_add = i.getBooleanExtra("specific", false);
@@ -137,7 +138,7 @@ public class addEdit extends AppCompatActivity {
 
         String dateInString = date + " " + time;
         Date inputDate = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
         try {
             inputDate = sdf.parse(dateInString);
@@ -148,8 +149,20 @@ public class addEdit extends AppCompatActivity {
 
         Long userInputTime = inputDate.getTime();
 
+        sts = new structure(input.getText().toString(), mDisplayDate.getText().toString(), mDisplayTime.getText().toString());
+        if (!edit_add) {
+            arr.add(sts);
+        } else {
+            arr.remove(position);
+            arr.add(position, sts);
+        }
+
         Intent intent = new Intent(addEdit.this, alarm.class);
-        PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+        Bundle extra = new Bundle();
+        extra.putParcelableArrayList("arr", arr);
+        intent.putExtra("data", extra);
+        intent.putExtra("requestCode", position);
+        PendingIntent pending = PendingIntent.getBroadcast(getApplicationContext(), position, intent, 0);
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarm.set(AlarmManager.RTC_WAKEUP, userInputTime, pending);
 ///////////////////////////////////////////////////////////////////////////////
@@ -158,13 +171,7 @@ public class addEdit extends AppCompatActivity {
 
         Log.d("usman", calendar.getTimeInMillis() + "");
 ///////////////////////////////////////////////////////////////////////////////
-        sts = new structure(input.getText().toString(), mDisplayDate.getText().toString(), mDisplayTime.getText().toString());
-        if (!edit_add) {
-            arr.add(sts);
-        } else {
-            arr.remove(position);
-            arr.add(position, sts);
-        }
+
         Intent i = new Intent();
         i.putExtra("data", arr);
         setResult(RESULT_OK, i);

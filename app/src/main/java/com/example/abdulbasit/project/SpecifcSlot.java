@@ -1,5 +1,6 @@
 package com.example.abdulbasit.project;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -71,13 +72,22 @@ public class SpecifcSlot extends AppCompatActivity {
     }
 
     public void delete(View view) {
-        Integer deletedrows = myDatabase.deleteData(title.getText() + "");
+        Integer deletedrows = myDatabase.deleteData(position + "");
         if (deletedrows > 0)
             Toast.makeText(SpecifcSlot.this, "Data deleted", Toast.LENGTH_LONG).show();
         else
             Toast.makeText(SpecifcSlot.this, "Data not deleted", Toast.LENGTH_LONG).show();
 
+        Intent intent = new Intent(SpecifcSlot.this, alarm.class);
+        PendingIntent.getBroadcast(getApplicationContext(), position, intent, PendingIntent.FLAG_UPDATE_CURRENT).cancel();
         arr.remove(position);
+
+        myDatabase.truncateTable();
+        for (int j = 0; j < arr.size(); j++) {
+            sts = arr.get(j);
+            myDatabase.insertData(sts.title, sts.date, sts.time, j);
+        }
+
         Intent i = new Intent();
         i.putExtra("data", arr);
         i.putExtra("position", -1);
