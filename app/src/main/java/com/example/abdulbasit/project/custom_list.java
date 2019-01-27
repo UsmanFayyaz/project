@@ -27,12 +27,10 @@ public class custom_list extends ArrayAdapter<structure> {
         TextView desc = (TextView) customView.findViewById(R.id.content);
         TextView date = (TextView) customView.findViewById(R.id.date);
         TextView time = (TextView) customView.findViewById(R.id.time);
-        Switch isswitch = (Switch) customView.findViewById(R.id.isSwitch);
 
         desc.setText(st.title);
         date.setText(st.date);
         time.setText(st.time);
-        isswitch.setChecked(Boolean.parseBoolean(st.isSwitch));
 
         return customView;
     }

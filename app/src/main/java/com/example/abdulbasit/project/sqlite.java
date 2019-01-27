@@ -15,7 +15,6 @@ public class sqlite extends SQLiteOpenHelper {
     public static final String col3 = "date";
     public static final String col4 = "time";
     public static final String col5 = "position";
-    public static final String col6 = "isSwitcch";
 
 
     public sqlite(Context context) {
@@ -31,8 +30,7 @@ public class sqlite extends SQLiteOpenHelper {
                 + col2 + " Text, "
                 + col3 + " Text, "
                 + col4 + " Text, "
-                + col5 + " integer, "
-                + col6 + " Text" +
+                + col5 + " integer" +
                 ")";
         db.execSQL(SQLString);
     }
@@ -42,14 +40,13 @@ public class sqlite extends SQLiteOpenHelper {
         db.execSQL("drop table if exists " + tableName);
     }
 
-    public boolean insertData(String title, String date, String time, int pos, String isSwitch) {
+    public boolean insertData(String title, String date, String time, int pos) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
         content.put(col2, title);
         content.put(col3, date);
         content.put(col4, time);
         content.put(col5, pos);
-        content.put(col6, isSwitch);
 
         long result = db.insert(tableName, null, content);
 
@@ -59,14 +56,13 @@ public class sqlite extends SQLiteOpenHelper {
             return true;
     }
 
-    public boolean updateData(String title, String date, String time, int pos, String isSwitch) {
+    public boolean updateData(String title, String date, String time, int pos) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
         content.put(col2, title);
         content.put(col3, date);
         content.put(col4, time);
         content.put(col5, pos);
-        content.put(col6, isSwitch);
         db.update(tableName, content, "position = ?", new String[]{pos + ""});
         return true;
     }

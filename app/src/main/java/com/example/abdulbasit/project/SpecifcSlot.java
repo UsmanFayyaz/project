@@ -85,7 +85,7 @@ public class SpecifcSlot extends AppCompatActivity {
         myDatabase.truncateTable();
         for (int j = 0; j < arr.size(); j++) {
             sts = arr.get(j);
-            myDatabase.insertData(sts.title, sts.date, sts.time, j,"true");
+            myDatabase.insertData(sts.title, sts.date, sts.time, j);
         }
 
         Intent i = new Intent();

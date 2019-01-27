@@ -149,7 +149,7 @@ public class addEdit extends AppCompatActivity {
 
         Long userInputTime = inputDate.getTime();
 
-        sts = new structure(input.getText().toString(), mDisplayDate.getText().toString(), mDisplayTime.getText().toString(),"true");
+        sts = new structure(input.getText().toString(), mDisplayDate.getText().toString(), mDisplayTime.getText().toString());
         if (!edit_add) {
             arr.add(sts);
         } else {

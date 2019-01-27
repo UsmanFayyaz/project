@@ -65,7 +65,7 @@ public class home extends AppCompatActivity {
 
 
                 structure sts = arr.get(arr.size() - 1);
-                myDataBase.insertData(sts.title, sts.date, sts.time,arr.size()-1,"true");
+                myDataBase.insertData(sts.title, sts.date, sts.time,arr.size()-1);
                 myListView.setOnItemClickListener(
                         new AdapterView.OnItemClickListener() {
                             @Override
@@ -91,7 +91,7 @@ public class home extends AppCompatActivity {
                     return;
 
                 structure sts = arr.get(pos);
-                if(myDataBase.updateData(sts.title, sts.date, sts.time,pos,"true"))
+                if(myDataBase.updateData(sts.title, sts.date, sts.time,pos))
                     Toast.makeText(this,"succefully updated",Toast.LENGTH_LONG).show();
 
                 myListView.setOnItemClickListener(
@@ -118,7 +118,6 @@ public class home extends AppCompatActivity {
             sts.title = res.getString(1);
             sts.date = res.getString(2);
             sts.time = res.getString(3);
-            sts.isSwitch=res.getString(5);
 
             arr.add(sts);
         }
