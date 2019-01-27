@@ -118,7 +118,7 @@ public class home extends AppCompatActivity {
             sts.title = res.getString(1);
             sts.date = res.getString(2);
             sts.time = res.getString(3);
-            sts.isSwitch=res.getString(4);
+            sts.isSwitch=res.getString(5);
 
             arr.add(sts);
         }
