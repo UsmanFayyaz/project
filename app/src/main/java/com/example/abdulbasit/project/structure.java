@@ -7,20 +7,24 @@ public class structure implements Parcelable {
     String title;
     String date;
     String time;
+    String isSwitch;
 
-    public structure(String d, String da, String ti) {
+    public structure(String d, String da, String ti, String s) {
         title = d;
         date = da;
         time = ti;
+        isSwitch = s;
     }
 
     protected structure(Parcel in) {
         title = in.readString();
         date = in.readString();
         time = in.readString();
+        isSwitch = in.readString();
     }
 
-    public structure(){}
+    public structure() {
+    }
 
 
     public static final Creator<structure> CREATOR = new Creator<structure>() {
@@ -45,5 +49,6 @@ public class structure implements Parcelable {
         dest.writeString(title);
         dest.writeString(date);
         dest.writeString(time);
+        dest.writeString(isSwitch);
     }
 }

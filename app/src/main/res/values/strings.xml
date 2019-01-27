@@ -29,8 +29,9 @@
     <string name="dates">Due Date:</string>
     <string name="remind_me_on">Remind me on</string>
     <string name="edit">Edit</string>
-    <string name="usman">USMAN</string>
+    <string name="usman"></string>
     <string name="delete">Delete</string>
     <string name="delete1">Delete</string>
     <string name="stop">Stop</string>
+    <string name="switchs">Switch</string>
 </resources>

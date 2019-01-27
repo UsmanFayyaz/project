@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,10 +27,12 @@ public class custom_list extends ArrayAdapter<structure> {
         TextView desc = (TextView) customView.findViewById(R.id.content);
         TextView date = (TextView) customView.findViewById(R.id.date);
         TextView time = (TextView) customView.findViewById(R.id.time);
+        Switch isswitch = (Switch) customView.findViewById(R.id.isSwitch);
 
         desc.setText(st.title);
         date.setText(st.date);
         time.setText(st.time);
+        isswitch.setChecked(Boolean.parseBoolean(st.isSwitch));
 
         return customView;
     }
